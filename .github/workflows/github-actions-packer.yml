@@ -2,31 +2,33 @@ name: ubuntu-20-packer
 on: [push] 
 
 jobs:
-  # vault:
-  #   runs-on: ubuntu-latest
-  #   name: vault
-  #   steps:
-  #     - name: 
-  #       id: vault-secrets
-  #       uses: hashicorp/vault-action@v2.3.1
-  #       with:
-  #           url: ${{ secrets.VAULT_ADDR }}
-  #           token: ${{ secrets.VAULT_TOKEN }}
-  #           namespace: ${{ secrets.VAULT_NAMESPACE}}
-  #           secrets: |
-  #             hcp/packer hcp_client_secret | HCP_CLIENT_SECRET ;
-  #             hcp/packer hcp_client_id | HCP_CLIENT_ID
-    # outputs:
-    #   output1: ${{ steps.vault-secrets.}}
+  vault:
+    runs-on: ubuntu-latest
+    name: vault
+    steps:
+      - name: 
+        id: secrets
+        uses: hashicorp/vault-action@v2.3.1
+        with:
+            url: ${{ secrets.VAULT_ADDR }}
+            token: ${{ secrets.VAULT_TOKEN }}
+            namespace: ${{ secrets.VAULT_NAMESPACE}}
+            secrets: |
+              hcp/data/packer hcp_client_secret | HCP_CLIENT_SECRET ;
+              hcp/data/packer hcp_client_id | HCP_CLIENT_ID
+    outputs:
+      hcp_client_secret: ${{ steps.secrets.outputs.HCP_CLIENT_SECRET }}
+      hcp_client_id: ${{ steps.secrets.outputs.HCP_CLIENT_ID }}
   ubuntu-20-build:
     runs-on: ubuntu-latest
     name: packer
+    needs: vault
     steps:
       - name: 
         id: vault-secrets
         uses: hashicorp/vault-action@v2.3.1
         with:
-            url: https://vault-plus.vault.11eb5471-19a8-952e-885d-0242ac110009.aws.hashicorp.cloud:8200
+            url: ${{ secrets.VAULT_ADDR }}
             token: ${{ secrets.VAULT_TOKEN }}
             namespace: ${{ secrets.VAULT_NAMESPACE}}
             secrets: |
@@ -50,6 +52,6 @@ jobs:
         env:
         # # Secrets placed here to scope to Build Step
         # # Move to Vault KV
-            HCP_CLIENT_SECRET: '${{ steps.vault-secrets.outputs.HCP_CLIENT_SECRET }}'
-            HCP_CLIENT_ID: '${{ steps.vault-secrets.outputs.HCP_CLIENT_ID }}'   
+            HCP_CLIENT_SECRET: '${{ needs.vault.outputs.hcp_client_secret }}'
+            HCP_CLIENT_ID: '${{ needs.vault.outputs.hcp_client_id }}'   
       - run: echo "Packer status is ${{ job.status }}."
