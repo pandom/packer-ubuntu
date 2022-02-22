@@ -31,7 +31,7 @@ jobs:
             namespace: ${{ secrets.VAULT_NAMESPACE}}
             secrets: |
               hcp/packer hcp_client_secret | HCP_CLIENT_SECRET ;
-              hcp/packer hcp_client_id | HCP_CLIENT_ID
+              hcp/packer hcp_client_id | HCP_CLIENT_ID ;
       - name: Check out repository code
         uses: actions/checkout@v2
       #authenticate to google cloud
