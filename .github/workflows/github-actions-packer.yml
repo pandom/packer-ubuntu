@@ -1,5 +1,8 @@
 name: ubuntu-20-packer
 on: [push]
+env: 
+  HCP_CLIENT_SECRET: '${{ secrets.HCP_CLIENT_SECRET }}'
+  HCP_CLIENT_ID: '${{ secrets.HCP_CLIENT_ID }}'
 jobs:
   ubuntu-20-build:
     runs-on: ubuntu-latest
