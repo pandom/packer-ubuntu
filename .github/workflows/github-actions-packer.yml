@@ -26,7 +26,7 @@ jobs:
         id: vault-secrets
         uses: hashicorp/vault-action@v2.3.1
         with:
-            url: ${{ secrets.VAULT_ADDR }}
+            url: https://vault-plus.vault.11eb5471-19a8-952e-885d-0242ac110009.aws.hashicorp.cloud:8200
             token: ${{ secrets.VAULT_TOKEN }}
             namespace: ${{ secrets.VAULT_NAMESPACE}}
             secrets: |
