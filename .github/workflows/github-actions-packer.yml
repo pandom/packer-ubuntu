@@ -20,9 +20,10 @@ jobs:
   #     hcp_client_secret: ${{ steps.secrets.outputs.HCP_CLIENT_SECRET }}
   #     hcp_client_id: ${{ steps.secrets.outputs.HCP_CLIENT_ID }}
   ubuntu-20-build:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: packer
-    needs: vault
+    # needs: vault
     steps:
       - name: 
         id: vault-secrets
