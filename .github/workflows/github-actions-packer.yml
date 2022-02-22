@@ -46,7 +46,7 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         #Move to Vault
         with:
-          credentials_json: '${{ steps.vault-secrets.output.google_credentials }}'
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
