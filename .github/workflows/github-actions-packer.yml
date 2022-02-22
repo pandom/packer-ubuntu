@@ -51,5 +51,5 @@ jobs:
         # # Secrets placed here to scope to Build Step
         # # Move to Vault KV
             HCP_CLIENT_SECRET: '${{ steps.vault-secrets.outputs.HCP_CLIENT_SECRET }}'
-            HCP_CLIENT_ID: '${{ steps.vault-secrets.HCP_CLIENT_ID }}'   
+            HCP_CLIENT_ID: '${{ steps.vault-secrets.outputs.HCP_CLIENT_ID }}'   
       - run: echo "Packer status is ${{ job.status }}."
