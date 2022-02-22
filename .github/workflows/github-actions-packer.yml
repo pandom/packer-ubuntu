@@ -2,9 +2,25 @@ name: ubuntu-20-packer
 on: [push] 
 
 jobs:
-  secrets-prebuild:
+  # vault:
+  #   runs-on: ubuntu-latest
+  #   name: vault
+  #   steps:
+  #     - name: 
+  #       id: vault-secrets
+  #       uses: hashicorp/vault-action@v2.3.1
+  #       with:
+  #           url: ${{ secrets.VAULT_ADDR }}
+  #           token: ${{ secrets.VAULT_TOKEN }}
+  #           namespace: ${{ secrets.VAULT_NAMESPACE}}
+  #           secrets: |
+  #             hcp/packer hcp_client_secret | HCP_CLIENT_SECRET ;
+  #             hcp/packer hcp_client_id | HCP_CLIENT_ID
+    # outputs:
+    #   output1: ${{ steps.vault-secrets.}}
+  ubuntu-20-build:
     runs-on: ubuntu-latest
-    name: vault
+    name: packer
     steps:
       - name: 
         id: vault-secrets
@@ -16,10 +32,6 @@ jobs:
             secrets: |
               hcp/packer hcp_client_secret | HCP_CLIENT_SECRET ;
               hcp/packer hcp_client_id | HCP_CLIENT_ID
-  ubuntu-20-build:
-    runs-on: ubuntu-latest
-    name: packer
-    steps:
       - name: Check out repository code
         uses: actions/checkout@v2
       #authenticate to google cloud
@@ -35,9 +47,9 @@ jobs:
           command: build
           arguments: "-color=false -on-error=abort"
           target: .
-        env:
-        # Secrets placed here to scope to Build Step
-        # Move to Vault KV
-            HCP_CLIENT_SECRET: '${{ jobs.vault.steps.vault-secret.HCP_CLIENT_SECRET }}'
-            HCP_CLIENT_ID: '${{ jobs.vault.steps.vault-secret.HCP_CLIENT_ID }}'   
+        # env:
+        # # Secrets placed here to scope to Build Step
+        # # Move to Vault KV
+        #     HCP_CLIENT_SECRET: '${{ needs.vault.vault.steps.vault-secret.HCP_CLIENT_SECRET }}'
+        #     HCP_CLIENT_ID: '${{ needs.vault.vault.steps.vault-secret.HCP_CLIENT_ID }}'   
       - run: echo "Packer status is ${{ job.status }}."
