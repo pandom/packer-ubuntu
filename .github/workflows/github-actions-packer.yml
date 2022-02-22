@@ -49,7 +49,7 @@ jobs:
         with:
           command: build
           arguments: "-color=false -on-error=abort"
-          target: .
+          target: ./
         env:
         # # Secrets placed here to scope to Build Step
     
