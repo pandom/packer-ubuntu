@@ -18,7 +18,7 @@ jobs:
         with:
           command: build
           arguments: "-color=false -on-error=abort"
-          target: packer.pkr.hcl
+          target: .
         env:
           PACKER_LOG: 1    
       - run: echo "Packer status is ${{ job.status }}."
