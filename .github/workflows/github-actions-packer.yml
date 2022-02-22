@@ -1,0 +1,29 @@
+name: ubuntu-20-packer
+on: [push]
+jobs:
+  ubuntu-20-build:
+    runs-on: ubuntu-latest
+    name: packer
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        # fix backwards incompatibilities in template
+      - name: Fix Template
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: fix
+      #authenticate to google cloud
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+      - name: Build Artifact
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: build
+          arguments: "-color=false -on-error=abort"
+          target: packer.pkr.hcl
+        env:
+          PACKER_LOG: 1    
+      - run: echo "Packer status is ${{ job.status }}."
