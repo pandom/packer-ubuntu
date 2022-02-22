@@ -24,7 +24,7 @@ Ubuntu 20.04 golden master.
     user = "ubuntu"
     extra_arguments = [
 			"--extra-vars",
-			"vault_addr=${var.vault_addr} ansible_user_password=${var.ansible_user_password}" tags="level_1_server"
+			"vault_addr=${var.vault_addr} ansible_user_password=${var.ansible_user_password}"
 		]
   }
 }
