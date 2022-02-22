@@ -1,0 +1,49 @@
+---
+- hosts: default
+  become: true
+  remote_user: ubuntu
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    vault_addr:
+    ansible_user_password:
+    ansible_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8xYZMmdFegfk4NCog1casM50GMQOzunGt1gjO0TNLPI4aJvfwL3BDyEMmvzvkyLKlAxhuQ9nPjYW5X6BK1kihHIBgpz3lweaXJWE0ITJEGjLpniSBvvXsQQA/Dq7wIc/l383aEaiqYDzmUhcndBkCPcHPd7WyGTQJl76Oh+ot0gabQzy/qfXdZNCnAIyCrVV9ZVlZmvEVcPLWq2wtP3y/9m027GVTh01KxaZjVHvT5gvjsniN3ZI908HsSTTwHXykXQQCTIOTfKPVvpr3lSiFomzGKVLQU8bkRz86ICn5UlXUNlzgNQbRA/JBM2W+o8XbzYhyoL+srQ7upPuWkcRrYYNnCk6Ag9fnUXTFAjOJdKZdhrxF2AuM/uEp+M0JwSwsCgilnm5nztZfRf9QHgKuYAvelu4325TtazIPXUiwXAsIKCl0UyWI5YTRu3lO8P3fpG0HyMIG1y0MukTMUEP13kp3sqjif374JIKdThksjEetIYw2H9DU5WEVVXrHXUs= burkey@erebor.local
+  tasks:
+    - name: Assign the CIS 20.04 banchmark role
+     include_role:
+      name: UBUNTU20-CIS
+    # - name: Update SSH configuration
+    #   include_role:
+    #       name: ansible-linux-ssh
+    - name: Create Ansible user
+      user:
+        name: ansible
+        password: '{{ ansible_user_password | password_hash("sha512") }}'
+        state: present
+        shell: /bin/bash
+      become: yes
+      become_method: sudo
+    - name: Assign sudo permissions to ansible user
+      copy:
+        content: 'ansible ALL=(ALL:ALL) NOPASSWD:ALL'
+        dest: /etc/sudoers.d/ansible
+        mode: 644
+
+    #     # Deploy Vault Agent
+    # - name: Add HashiCorp GPG key
+    #   apt_key:
+    #     url: https://apt.releases.hashicorp.com/gpg
+    #     state: present
+    # - name: Add HashiCorp repository
+    #   apt_repository:
+    #     repo: deb [arch=amd64] https://apt.releases.hashicorp.com "{{ ansible_facts['lsb']['codename'] }}" main
+    #     state: present
+    #     mode: 644
+    # - name: Install Vault
+    #   apt:
+    #     name: vault-enterprise
+    #     state: present
+    #     update_cache: true
+    # - name: Disable Vault Service
+    #   service:
+    #     name: vault
+    #     enabled: no

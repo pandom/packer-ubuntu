@@ -18,10 +18,20 @@ variable "prefix" {
 }
 
 variable "region" {
-  type = string
-  default = "ap-southeast-2"
+    type = string
+    default = "ap-southeast-2"
 }
 variable "owner" {
-  type = string
-  default = "Burkey"
+    type = string
+    default = "Burkey"
+}
+
+variable "vault_addr" {
+    type = string
+    default = "http://vault:8200"
+}
+
+variable "ansible_user_password" {
+    type = string
+    default = "ansible"
 }
