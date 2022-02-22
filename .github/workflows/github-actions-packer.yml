@@ -37,7 +37,7 @@ jobs:
               hcp/data/packer hcp_client_id | HCP_CLIENT_ID ;
               aws/data/creds aws_access_key_id | AWS_ACCESS_KEY_ID ;
               aws/data/creds aws_secret_access_key | AWS_SECRET_ACCESS_KEY ;
-              aws/data/creds aws_sesstion_token | AWS_SESSION_TOKEN;
+              aws/data/creds aws_session_token | AWS_SESSION_TOKEN;
               gcp/data/creds google_credentials | GOOGLE_CREDENTIALS
       - name: Check out repository code
         uses: actions/checkout@v2
