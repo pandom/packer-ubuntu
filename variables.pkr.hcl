@@ -16,3 +16,12 @@ variable "prefix" {
 	type = string
 	default = "base"
 }
+
+variable "region" {
+  type = string
+  default = "ap-southeast-2"
+}
+variable "owner" {
+  type = string
+  default = "Burkey"
+}
