@@ -1,0 +1,6 @@
+[submodule "roles/ubuntu-18.04-cis-benchmark-for-ansible"]
+	path = roles/ubuntu-18.04-cis-benchmark-for-ansible
+	url = https://github.com/paxdominicus/ubuntu-18.04-cis-benchmark-for-ansible.git
+[submodule "roles/ansible-linux-ssh"]
+	path = roles/ansible-linux-ssh
+	url = https://github.com/grantorchard/ansible-linux-ssh
