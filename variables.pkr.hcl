@@ -12,3 +12,7 @@ variable "google_zone" {
   type = string
   default = "australia-southeast2-a"
 }
+variable "prefix" {
+	type = string
+	default = "base"
+}
