@@ -59,7 +59,7 @@ jobs:
           role-session-name: packer-gha
       - name: Build Artifact
         # uses: hashicorp/packer-github-actions@master
-        uses: pandom/packer-github-actions@v0.3.0-ansible
+        uses: pandom/packer-github-actions@v0.3.1-ansible
         with:
           command: build
           arguments: "-color=false -on-error=abort"
