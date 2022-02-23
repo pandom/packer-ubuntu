@@ -10,7 +10,7 @@
   tasks:
     - name: Assign the CIS banchmark role
       include_role:
-      name: ubuntu-18.04-cis-benchmark-for-ansible
+          name: ubuntu-18.04-cis-benchmark-for-ansible
     - name: Update SSH configuration
       include_role:
           name: ansible-linux-ssh
