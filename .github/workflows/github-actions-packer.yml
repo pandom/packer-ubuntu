@@ -58,7 +58,8 @@ jobs:
           role-duration-seconds: 1200
           role-session-name: packer-gha
       - name: Build Artifact
-        uses: hashicorp/packer-github-actions@master
+        # uses: hashicorp/packer-github-actions@master
+        uses: collins-w/packer-github-actions@v0.3.1
         with:
           command: build
           arguments: "-color=false -on-error=abort"
