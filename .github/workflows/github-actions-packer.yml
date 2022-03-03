@@ -2,23 +2,7 @@ name: ubuntu-20-packer
 on: [push] 
 
 jobs:
-  # vault:
-  #   runs-on: ubuntu-latest
-  #   name: vault
-  #   steps:
-  #     - name: 
-  #       id: secrets
-  #       uses: hashicorp/vault-action@v2.3.1
-  #       with:
-  #           url: ${{ secrets.VAULT_ADDR }}
-  #           token: ${{ secrets.VAULT_TOKEN }}
-  #           namespace: ${{ secrets.VAULT_NAMESPACE}}
-  #           secrets: |
-  #             hcp/data/packer hcp_client_secret | HCP_CLIENT_SECRET ;
-  #             hcp/data/packer hcp_client_id | HCP_CLIENT_ID
-  #   outputs:
-  #     hcp_client_secret: ${{ steps.secrets.outputs.HCP_CLIENT_SECRET }}
-  #     hcp_client_id: ${{ steps.secrets.outputs.HCP_CLIENT_ID }}
+#``HCP_PACKER_BUILD_FINGERPRINT=${{ env.GITHUB_SHA }}-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_ATTEMPT}}""${{ env.GITHUB_SHA }}-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_ATTEMPT}}
   ubuntu-20-build:
     # runs-on: ubuntu-latest
     runs-on: self-hosted
@@ -66,9 +50,7 @@ jobs:
           target: .
         env:
         # # Secrets placed here to scope to Build Step
-    
-            # HCP_CLIENT_SECRET: '${{ needs.vault.outputs.hcp_client_secret }}'
-            # HCP_CLIENT_ID: '${{ needs.vault.outputs.hcp_client_id }}'
+            HCP_PACKER_BUILD_FINGERPRINT: '${{ env.GITHUB_SHA }}-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_ATTEMPT}}""${{ env.GITHUB_SHA }}-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_ATTEMPT}}'
             HCP_CLIENT_SECRET: '${{ steps.vault-secrets.outputs.hcp_client_secret }}'
             HCP_CLIENT_ID: '${{ steps.vault-secrets.outputs.hcp_client_id }}'      
       - run: echo "Packer status is a ${{ job.status }}."
