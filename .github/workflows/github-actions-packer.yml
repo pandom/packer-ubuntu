@@ -50,7 +50,7 @@ jobs:
           target: .
         env:
         # # Secrets placed here to scope to Build Step
-            HCP_PACKER_BUILD_FINGERPRINT: '$GITHUB_SHA-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT-$GITHUB_SHA-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT'
+            HCP_PACKER_BUILD_FINGERPRINT: '$GITHUB_SHA-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT'
             HCP_CLIENT_SECRET: '${{ steps.vault-secrets.outputs.hcp_client_secret }}'
             HCP_CLIENT_ID: '${{ steps.vault-secrets.outputs.hcp_client_id }}'      
       - run: echo "Packer status is a ${{ job.status }}."
