@@ -9,9 +9,11 @@ jobs:
     name: packer
     # needs: vault
     steps:
-      # - name: GIT_SHA_SHORT
-      #   id: vars
-      #   run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: git-short-sha
+      - uses: benjlevesque/short-sha@v1.2
+        id: short-sha
+        with:
+          length: 6
       - name: 
         id: vault-secrets
         uses: hashicorp/vault-action@v2.3.1
@@ -54,7 +56,7 @@ jobs:
         env:
         # # Secrets placed here to scope to Build Step
             # This allows scheduled rerunning on same commit that uses the sha_short + run_id + count for uniqueness/traceability.
-            HCP_PACKER_BUILD_FINGERPRINT: '${{ github.shortsha }}-${{ github.run_id }}-${{ github.run_attempt }}'
+            HCP_PACKER_BUILD_FINGERPRINT: '${{ steps.short-sha.outputs.sha }}-${{ github.run_id }}-${{ github.run_attempt }}'
             HCP_CLIENT_SECRET: '${{ steps.vault-secrets.outputs.hcp_client_secret }}'
             HCP_CLIENT_ID: '${{ steps.vault-secrets.outputs.hcp_client_id }}'      
       - run: echo "Packer status is a ${{ job.status }}."
