@@ -19,9 +19,9 @@ jobs:
         uses: hashicorp/vault-action@v2.3.1
         with:
             url: ${{ secrets.VAULT_ADDR }}
-            method: jwt
-            role: gha-vault-jwt
-            # token: ${{ secrets.VAULT_TOKEN }}
+            # method: jwt
+            # role: gha-vault-jwt
+            token: ${{ secrets.VAULT_TOKEN }}
             namespace: ${{ secrets.VAULT_NAMESPACE}}
             secrets: |
               hcp/data/packer hcp_client_secret | HCP_CLIENT_SECRET ;
