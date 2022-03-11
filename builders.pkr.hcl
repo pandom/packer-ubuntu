@@ -4,14 +4,21 @@ build {
     description = <<EOT
 Ubuntu 20.04 golden master.
     EOT
-    build_labels = {
+    bucket_labels = {
       "ubuntu" = "20.04",
       "golden"         = "true",
       "security_hardened" = "true",
       "cis_benchmarked" = "true",
       "github_action" = "true"
     }
+    build_labels = {
+        "log4j" = "resolved"
+        "python-version"   = "3.9",
+        "ubuntu-version" = "20.04"
+        "build-time" = timestamp()
+}
   }
+  
   #need
   sources = [
 		#"vsphere-iso.ubuntu-1804",
