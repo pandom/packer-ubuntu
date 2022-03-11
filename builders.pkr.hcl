@@ -4,7 +4,7 @@ build {
     description = <<EOT
 Ubuntu 20.04 golden master.
     EOT
-    labels = {
+    build_labels = {
       "ubuntu" = "20.04",
       "golden"         = "true",
       "security_hardened" = "true",
