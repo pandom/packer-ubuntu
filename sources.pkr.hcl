@@ -30,7 +30,11 @@ source "amazon-ebs" "base" {
 
   tags = {
     owner = var.owner
+    delete_date = "2022-04-08"
     application = "base-build"
-    Base_AMI_Name = "{{ .SourceAMIName }}"
+    golden    = "false"
+    security_hardened = "true"
+    cis_benchmarked = "true"
+    github_action = "true"
   }
 }
