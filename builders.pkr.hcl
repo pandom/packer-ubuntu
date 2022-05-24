@@ -5,11 +5,11 @@ build {
 Ubuntu 20.04 golden master.
     EOT
     bucket_labels = {
-      "ubuntu" = "20.04",
+      "ubuntu" = "20.04-2022",
       "golden"         = "true",
       "security_hardened" = "true",
       "cis_benchmarked" = "true",
-      "github_action" = "true"
+      "github_action" = "true",
     }
     build_labels = {
         "log4j" = "resolved"
