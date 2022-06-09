@@ -13,6 +13,7 @@ Ubuntu 20.04 golden master.
     }
     build_labels = {
         "log4j" = "resolved"
+        "ciphers" = "2022-approved"
         "python-version"   = "3.9",
         "ubuntu-version" = "20.04"
         "build-time" = timestamp()
@@ -23,7 +24,7 @@ Ubuntu 20.04 golden master.
   sources = [
 		#"vsphere-iso.ubuntu-1804",
 		"amazon-ebs.base"
-    # "googlecompute.base"
+    "googlecompute.base"
   ]
 
   provisioner "ansible" {
