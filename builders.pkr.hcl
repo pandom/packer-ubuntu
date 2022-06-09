@@ -15,7 +15,7 @@ Ubuntu 20.04 golden master.
         "log4j" = "resolved"
         "ciphers" = "2022-approved"
         "python-version"   = "3.9",
-        "ubuntu-version" = "20.04"
+        "ubuntu-version" = "20.04.03"
         "build-time" = timestamp()
 }
   }
