@@ -27,8 +27,10 @@ jobs:
             #token: ${{ secrets.VAULT_TOKEN }}
             namespace: ${{ secrets.VAULT_NAMESPACE}}
             secrets: |
-              hcp/data/packer hcp_client_secret | HCP_CLIENT_SECRET ;
-              hcp/data/packer hcp_client_id | HCP_CLIENT_ID 
+              hcp/data/creds hcp_client_secret | HCP_CLIENT_SECRET;
+              hcp/data/creds hcp_client_id | HCP_CLIENT_ID
+             # hcp/data/packer hcp_client_secret | HCP_CLIENT_SECRET ;
+             # hcp/data/packer hcp_client_id | HCP_CLIENT_ID 
              # aws/data/creds aws_access_key_id | AWS_ACCESS_KEY_ID ;
              # aws/data/creds aws_secret_access_key | AWS_SECRET_ACCESS_KEY ;
              # aws/data/creds aws_session_token | AWS_SESSION_TOKEN;
