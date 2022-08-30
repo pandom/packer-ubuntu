@@ -9,6 +9,7 @@ source "googlecompute" "base" {
   region = var.google_region
   ssh_username = "ubuntu"
   zone = var.google_zone
+  
 }
 
 source "amazon-ebs" "base" {
@@ -27,7 +28,6 @@ source "amazon-ebs" "base" {
   instance_type = "t2.medium"
   ssh_username = "ubuntu"
   ami_name = "${var.prefix}-${local.timestamp}"
-
   tags = {
     owner = var.owner
     delete_date = "2022-04-08"

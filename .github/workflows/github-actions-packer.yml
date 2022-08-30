@@ -4,8 +4,8 @@ on: [push]
 jobs:
 #``HCP_PACKER_BUILD_FINGERPRINT=${{ env.GITHUB_SHA }}-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_ATTEMPT}}""${{ env.GITHUB_SHA }}-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_ATTEMPT}}
   ubuntu-20-build:
-    # runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    #runs-on: self-hosted
     permissions:
       id-token: write
       contents: read
