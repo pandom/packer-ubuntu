@@ -23,3 +23,17 @@ jobs:
               hcp/data/creds hcp_client_secret | HCP_CLIENT_SECRET;
               hcp/data/creds hcp_client_id | HCP_CLIENT_ID
       - run: echo $HCP_CLIENT_ID
+  curl:
+    runs-on: self-hosted
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - run: sleep 5 # there's still a race condition for now
+      - run: |
+          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=o6s" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+      - name: Get JWT Token
+        run: |
+          VAULT_JWT=$(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sigstore" | jq -r '.value')
+          echo VAULT_JWT=$VAULT_JWT >> $GITHUB_ENV
+          echo $VAULT_JWT
