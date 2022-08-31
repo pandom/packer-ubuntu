@@ -12,7 +12,7 @@ jobs:
       - name: Import Secrets
         uses: hashicorp/vault-action@v2.4.0
         with:
-          url: https://production.vault.11eb56d6-0f95-3a99-a33c-0242ac110007.aws.hashicorp.cloud:8200
+          url: https://vault-plus-public-vault-8c8c1dfb.4ad44770.z1.hashicorp.cloud:8200
           method: jwt
           role: gha-vault-jwt
           namespace: admin
@@ -38,4 +38,4 @@ jobs:
           echo $VAULT_JWT
       - name: Authenticate to Vault
         run: |
-          curl --request POST --data "{ \"jwt\": \"${{ env.VAULT_JWT }}\", \"role\": \"gha-vault-jwt\"}" ${{ secrets.VAULT_ADDR }}/v1/auth/gha/login 
+          curl --request POST --data "{ \"jwt\": \"${{ env.VAULT_JWT }}\", \"role\": \"packer-action\"}" ${{ secrets.VAULT_ADDR }}/v1/auth/gha/login 
