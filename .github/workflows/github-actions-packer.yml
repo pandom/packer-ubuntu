@@ -2,7 +2,6 @@ name: ubuntu-20-packer
 on: [push] 
 
 jobs:
-#``HCP_PACKER_BUILD_FINGERPRINT=${{ env.GITHUB_SHA }}-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_ATTEMPT}}""${{ env.GITHUB_SHA }}-${{ env.GITHUB_RUN_ID }}-${{ env.GITHUB_RUN_ATTEMPT}}
   ubuntu-20-build:
     runs-on: ubuntu-latest
     #runs-on: self-hosted
@@ -17,15 +16,21 @@ jobs:
         id: short-sha
         with:
           length: 6
-      - name: 
+      - name: retrieve-secrets
         id: vault-secrets
         uses: hashicorp/vault-action@v2.4.0
         with:
-            url: ${{ secrets.VAULT_ADDR }}
-            method: jwt
-            role: packer-action
+            exportToken: true
+            url: https://vault-plus-public-vault-8c8c1dfb.4ad44770.z1.hashicorp.cloud:820
+            namespace: admin
+            #url: ${{ secrets.VAULT_ADDR }}
             #token: ${{ secrets.VAULT_TOKEN }}
-            namespace: ${{ secrets.VAULT_NAMESPACE}}
+            #namespace: ${{ secrets.VAULT_NAMESPACE}}
+            jwtGithubAudience: sigstore
+            method: jwt
+            path: jwt
+            role: packer-action
+            
             secrets: |
               hcp/data/creds hcp_client_secret | HCP_CLIENT_SECRET;
               hcp/data/creds hcp_client_id | HCP_CLIENT_ID
