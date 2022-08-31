@@ -21,7 +21,7 @@ jobs:
         uses: hashicorp/vault-action@v2.4.0
         with:
             exportToken: true
-            url: https://vault-plus-public-vault-8c8c1dfb.4ad44770.z1.hashicorp.cloud:820
+            url: https://vault-plus-public-vault-8c8c1dfb.4ad44770.z1.hashicorp.cloud:8200
             namespace: admin
             #url: ${{ secrets.VAULT_ADDR }}
             #token: ${{ secrets.VAULT_TOKEN }}
