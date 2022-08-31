@@ -24,7 +24,7 @@ jobs:
               hcp/data/creds hcp_client_id | HCP_CLIENT_ID
       - run: echo $HCP_CLIENT_ID
   curl:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
