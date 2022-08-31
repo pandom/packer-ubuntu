@@ -24,7 +24,7 @@ jobs:
             namespace: admin
             jwtGithubAudience: sigstore
             method: jwt
-            path: jwt
+            path: gha
             role: packer-action
             secrets: |
               hcp/data/creds hcp_client_secret | HCP_CLIENT_SECRET;
