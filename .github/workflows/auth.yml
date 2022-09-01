@@ -17,7 +17,7 @@ jobs:
         with:
           url: https://vault-plus-public-vault-8c8c1dfb.4ad44770.z1.hashicorp.cloud:8200
           namespace: admin
-          role: gh-demo
+          role: demo-role
           method: jwt
           path: gh-actions
           secrets: |
