@@ -38,4 +38,4 @@ jobs:
           echo $VAULT_JWT
       - name: Authenticate to Vault
         run: |
-          curl --request POST --data "{ \"jwt\": \"${{ env.VAULT_JWT }}\", \"role\": \"packer-action\"}" ${{ secrets.VAULT_ADDR }}/v1/auth/gha/login 
+          curl --request POST -H "X-Vault-Namespace: admin" --data "{ \"jwt\": \"${{ env.VAULT_JWT }}\", \"role\": \"packer-action\"}" ${{ secrets.VAULT_ADDR }}/v1/auth/gha/login 
