@@ -20,5 +20,6 @@ jobs:
           namespace: admin
           method: jwt
           role: gha
+          exportToken: true
           secrets: |
             hcp/data/creds hcp_client_id | HCP_CLIENT_ID
