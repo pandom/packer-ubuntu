@@ -1,0 +1,64 @@
+name: Packer Build with JWT Token
+
+on:
+  push:
+
+jobs:
+  packer-build:
+    permissions:
+      id-token: write
+      contents: read
+    #runs-on: self-hosted
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Secrets
+        id: vault-secrets
+        uses: hashicorp/vault-action@v2.4.0
+        with:
+          url: https://vault-plus-public-vault-8c8c1dfb.4ad44770.z1.hashicorp.cloud:8200
+          namespace: admin
+          role: demo-role
+          method: jwt
+          path: gh-actions
+          secrets: |
+            hcp/data/creds hcp_client_id | HCP_CLIENT_ID;
+            hcp/data/creds hcp_secret_id | HCP_SECRET_ID;
+            aws/data/creds aws_access_key_id | AWS_ACCESS_KEY_ID ;
+            aws/data/creds aws_secret_access_key | AWS_SECRET_ACCESS_KEY ;
+            aws/data/creds aws_session_token | AWS_SESSION_TOKEN;
+            gcp/data/creds google_credentials | GOOGLE_CREDENTIALS
+      - name: git-short-sha
+        uses: benjlevesque/short-sha@v1.2
+        id: short-sha
+        with:
+          length: 6
+      #authenticate to google cloud
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0'
+        #Move to Vault
+        with:
+          credentials_json: '${{ steps.vault-secrets.outputs.google_credentials }}'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ steps.vault-secrets.outputs.aws_access_key_id }}
+          aws-secret-access-key: ${{ steps.vault-secrets.outputs.aws_secret_access_key }}
+          aws-session-token: ${{ steps.vault-secrets.outputs.aws_session_token }}
+          aws-region: ap-southeast-2
+          role-duration-seconds: 1200
+          role-session-name: packer-gha
+      - name: Build Artifact
+        # uses: hashicorp/packer-github-actions@master
+        uses: pandom/packer-github-actions@v0.3.1-ansible
+        with:
+          command: build
+          arguments: "-color=false -on-error=abort"
+          target: .
+        env:
+        # # Secrets placed here to scope to Build Step
+            # This allows scheduled rerunning on same commit that uses the sha_short + run_id + count for uniqueness/traceability.
+            HCP_PACKER_BUILD_FINGERPRINT: '${{ steps.short-sha.outputs.sha }}-${{ github.run_id }}-${{ github.run_attempt }}'
+            HCP_CLIENT_SECRET: '${{ steps.vault-secrets.outputs.hcp_client_secret }}'
+            HCP_CLIENT_ID: '${{ steps.vault-secrets.outputs.hcp_client_id }}'      
+      - run: echo "Builds from packer are complete"
