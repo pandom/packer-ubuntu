@@ -17,7 +17,7 @@ jobs:
         with:
           url: ${{ secrets.VAULT_ADDR }}
           namespace: admin
-          role: demo-role
+          role: hcp-kv-read
           method: jwt
           path: gh-actions
           secrets: |
