@@ -22,7 +22,7 @@ jobs:
           path: gh-actions
           secrets: |
             hcp/data/creds hcp_client_id | HCP_CLIENT_ID;
-            hcp/data/creds hcp_secret_id | HCP_SECRET_ID;
+            hcp/data/creds hcp_client_secret | HCP_SECRET_ID;
             aws/data/creds aws_access_key_id | AWS_ACCESS_KEY_ID ;
             aws/data/creds aws_secret_access_key | AWS_SECRET_ACCESS_KEY ;
             aws/data/creds aws_session_token | AWS_SESSION_TOKEN;
