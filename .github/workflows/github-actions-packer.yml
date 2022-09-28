@@ -15,7 +15,7 @@ jobs:
         id: vault-secrets
         uses: hashicorp/vault-action@v2.4.0
         with:
-          url: https://vault-plus-public-vault-8c8c1dfb.4ad44770.z1.hashicorp.cloud:8200
+          url: ${{ secrets.VAULT_ADDR }}
           namespace: admin
           role: demo-role
           method: jwt
@@ -61,4 +61,4 @@ jobs:
             HCP_PACKER_BUILD_FINGERPRINT: '${{ steps.short-sha.outputs.sha }}-${{ github.run_id }}-${{ github.run_attempt }}'
             HCP_CLIENT_SECRET: '${{ steps.vault-secrets.outputs.hcp_client_secret }}'
             HCP_CLIENT_ID: '${{ steps.vault-secrets.outputs.hcp_client_id }}'      
-      - run: echo "Builds from packer are complete"
+      - run: echo "Builds by packer are complete"
