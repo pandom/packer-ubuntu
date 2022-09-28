@@ -8,9 +8,10 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    #runs-on: self-hosted
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    #runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Get Secrets
         id: vault-secrets
         uses: hashicorp/vault-action@v2.4.0
