@@ -17,9 +17,9 @@ jobs:
         with:
           url: ${{ secrets.VAULT_ADDR }}
           namespace: admin
-          role: hcp-kv-read
+          role: gha
           method: jwt
-          path: gh-actions
+          #path: gh-actions
           secrets: |
             hcp/data/creds hcp_client_id | HCP_CLIENT_ID;
             hcp/data/creds hcp_client_secret | HCP_SECRET_ID;
