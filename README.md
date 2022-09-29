@@ -8,7 +8,7 @@ It uses JWT Authentication to take the trusted, encoded values from the GitHub A
 
 ## Topology
 
-```
+```mermaid
 flowchart TD
 subgraph Vault
 c1[HCP Vault]
