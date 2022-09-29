@@ -2,6 +2,9 @@ name: Packer Build with JWT Token
 
 on:
   push:
+    paths:
+      - "**.hcl"
+      - ".github/workflows/github-actions.yml"
 
 jobs:
   packer-build:
