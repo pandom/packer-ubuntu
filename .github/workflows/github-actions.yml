@@ -5,6 +5,11 @@ on:
     paths:
       - "**.hcl"
       - ".github/workflows/github-actions.yml"
+  pull_request:
+    paths:
+      - "**.hcl"
+      - ".github/workflows/github-actions.yml"
+
 
 jobs:
   packer-build:
