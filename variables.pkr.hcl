@@ -1,6 +1,6 @@
 variable "project_id" {
   type = string
-  default = "hc-24a8e492b4d4480484b7b748091"
+  default = "hc-c64fcb7826c04b8d90805414fe1"
 }
 
 variable "google_region" {
