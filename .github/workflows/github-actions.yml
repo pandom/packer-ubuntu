@@ -5,10 +5,12 @@ on:
     paths:
       - "**.hcl"
       - ".github/workflows/github-actions.yml"
+      - "playbook.yml"
   pull_request:
     paths:
       - "**.hcl"
       - ".github/workflows/github-actions.yml"
+      - "playbook.yml"
 
 
 jobs:
