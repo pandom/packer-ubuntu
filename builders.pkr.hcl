@@ -23,8 +23,8 @@ Ubuntu 20.04 golden master.
   #need
   sources = [
 		#"vsphere-iso.ubuntu-1804",
-		"amazon-ebs.base",
-    "googlecompute.base"
+		"amazon-ebs.base"#,
+    #"googlecompute.base"
   ]
 
   provisioner "ansible" {
